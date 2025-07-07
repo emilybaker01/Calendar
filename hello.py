@@ -2,6 +2,7 @@ import sqlite3
 conn = sqlite3.connect('calendar.db')
 cursor =conn.cursor()
 
+
 def read_table():
     cursor.execute('SELECT * FROM day')
     rows = cursor.fetchall()
