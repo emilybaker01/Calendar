@@ -2,6 +2,18 @@ import sqlite3
 conn = sqlite3.connect('calendar.db')
 cursor =conn.cursor()
 
+def create_table():
+    cursor.execute('''
+    CREATE TABLE IF NOT EXIST day (
+        date INTEGER,
+        start_time INTEGER,
+        duration INTEGER,
+        person TEXT NOT NULL,
+        job_role TEXT NOT NULL,
+        meeting TEXT NOT NULL,
+        UNIQUE(date, start_time)
+    )
+    ''')
 
 def read_table():
     cursor.execute('SELECT * FROM day')
@@ -53,6 +65,8 @@ def add_record():
     ''',(dat,tim,length,pers,job,meet))
     conn.commit()
 
+
+create_table()
 print('*****WELCOME TO YOUR MEETING CALENDAR*****')
 print('PLEASE SELECT ONE OF THE FOLLOWING START OPTIONS')
 print('1.view whole table\n2.view specific records\n3.add new record\n4.exit')
