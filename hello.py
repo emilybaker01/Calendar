@@ -26,17 +26,16 @@ def read_record():
     if column == 1:
         dates=[]
         dat =input ('enter date/s, when finished input done ')
+        
         while dat != 'done':
             dates.append(dat)
             dat =input ('enter date/s, when finished input done ')
-        print(dates)
         placeholders=','.join(['?']*len(dates))
         query = f'''
         SELECT * FROM day
         WHERE date IN ({placeholders})
         '''
-        cursor.execute(query,dates)
-        rows = cursor.fetchall()
+        rows = read_record_for_date(query,dates,)
         for row in rows:
             print(row)
     elif column == 2:
@@ -46,10 +45,20 @@ def read_record():
             print(row)
     elif column == 3:
         pers=input('who are you looking for: ')
-        cursor.execute('SELECT * FROM day WHERE person =?',(pers,))
-        rows = cursor.fetchall()
+        rows = read_record_for_person(pers,)
         for row in rows:
             print(row)
+
+
+def read_record_for_date(query,dates,):
+    cursor.execute(query,dates)
+    rows = cursor.fetchall()
+    return rows;
+
+def read_record_for_person(pers,):
+    cursor.execute('SELECT * FROM day WHERE person =?',(pers,))
+    rows = cursor.fetchall()
+    return rows;
 
 def read_record_for_day(tim):
     cursor.execute('SELECT * FROM day WHERE start_time=?',(tim,))
