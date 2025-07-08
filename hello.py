@@ -4,7 +4,7 @@ cursor =conn.cursor()
 
 def create_table():
     cursor.execute('''
-    CREATE TABLE IF NOT EXIST day (
+    CREATE TABLE IF NOT EXISTS day (
         date INTEGER,
         start_time INTEGER,
         duration INTEGER,
@@ -41,8 +41,7 @@ def read_record():
             print(row)
     elif column == 2:
         tim=input('enter the time of the meeting: ')
-        cursor.execute('SELECT * FROM day WHERE start_time=?',(tim,))
-        rows = cursor.fetchall()
+        rows = read_record_for_day(tim);
         for row in rows:
             print(row)
     elif column == 3:
@@ -51,6 +50,11 @@ def read_record():
         rows = cursor.fetchall()
         for row in rows:
             print(row)
+
+def read_record_for_day(tim):
+    cursor.execute('SELECT * FROM day WHERE start_time=?',(tim,))
+    rows = cursor.fetchall()
+    return rows;
 
 def add_record():
     dat=input('enter the date of the meeting: ')
@@ -65,25 +69,25 @@ def add_record():
     ''',(dat,tim,length,pers,job,meet))
     conn.commit()
 
-
-create_table()
-print('*****WELCOME TO YOUR MEETING CALENDAR*****')
-print('PLEASE SELECT ONE OF THE FOLLOWING START OPTIONS')
-print('1.view whole table\n2.view specific records\n3.add new record\n4.exit')
-choice=input()
-while choice!='':
-    if choice == '1':
-        read_table()
-        choice=input('select one of the 4 start options ')
-    elif choice == '2':
-        read_record()
-        choice=input('select one of the 4 start options ')
-    elif choice == '3':
-        add_record()
-        choice=input('select one of the 4 start options ')
-    elif choice =='4':
-        print('goodbye!')
-        break
-    else:
-        print('invalid input.')
-        choice=input('select one of the 4 start options ')
+if __name__ == '__main__':
+    create_table()
+    print('*****WELCOME TO YOUR MEETING CALENDAR*****')
+    print('PLEASE SELECT ONE OF THE FOLLOWING START OPTIONS')
+    print('1.view whole table\n2.view specific records\n3.add new record\n4.exit')
+    choice=input()
+    while choice!='':
+        if choice == '1':
+            read_table()
+            choice=input('select one of the 4 start options ')
+        elif choice == '2':
+            read_record()
+            choice=input('select one of the 4 start options ')
+        elif choice == '3':
+            add_record()
+            choice=input('select one of the 4 start options ')
+        elif choice =='4':
+            print('goodbye!')
+            break
+        else:
+            print('invalid input.')
+            choice=input('select one of the 4 start options ')
