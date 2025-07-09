@@ -35,6 +35,7 @@ def read_record():
         SELECT * FROM day
         WHERE date IN ({placeholders})
         '''
+        record=CalendarEntry()
         rows = read_record_for_date(query,dates,)
         for row in rows:
             print(row)
@@ -49,9 +50,22 @@ def read_record():
         for row in rows:
             print(row)
 
+def add_record():
+    dat=input('enter the date of the meeting: ')
+    tim=input('enter the time of the meeting: ')
+    length=input('enter the duration of the meeting: ')
+    pers=input('enter the person holding the meeting: ')
+    job=input('enter their job title: ')
+    meet=input('enter the outline of the meeting: ')
+    cursor.execute('''
+    INSERT INTO day (date, start_time, duration, person, job_role, meeting)
+    VALUES (?,?,?,?,?,?)
+    ''',(dat,tim,length,pers,job,meet))
+    conn.commit()
+    conn.close()
 
 def read_record_for_date(query,dates,):
-    cursor.execute(query,dates)
+    cursor.execute(query,dates,)
     rows = cursor.fetchall()
     return rows;
 
@@ -65,18 +79,22 @@ def read_record_for_day(tim):
     rows = cursor.fetchall()
     return rows;
 
-def add_record():
-    dat=input('enter the date of the meeting: ')
-    tim=input('enter the time of the meeting: ')
-    length=input('enter the duration of the meeting: ')
-    pers=input('enter the person holding the meeting: ')
-    job=input('enter their job title: ')
-    meet=input('enter the outline of the meeting: ')
-    cursor.execute('''
-    INSERT INTO day (date, start_time, duration, person, job_role, meeting)
-    VALUES (?,?,?,?,?,?)
-    ''',(dat,tim,length,pers,job,meet))
-    conn.commit()
+
+class CalendarEntry:
+    def __init__(self, date, Starttime, duration, person, jobrole, meeting):
+        self.date = date 
+        self.Starttime = Starttime
+        self.duration = duration
+        self.person = person
+        self.jobrole = jobrole
+        self.meeting = meeting
+
+    def __str__(self):
+        return f'On {self.date}, you have a meeting at {self.Starttime} with {self.person}'
+    
+
+
+        
 
 if __name__ == '__main__':
     create_table()
