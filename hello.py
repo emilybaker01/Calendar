@@ -22,7 +22,7 @@ def read_table():
         print(row)
 
 def read_record():
-    column = int(input ('select which column you are searching in: 1. date\n2.time\n3.person '))
+    column = int(input ('select which column you are searching in:\n1. date\n2.time\n3.person '))
     if column == 1:
         dates=[]
         dat =input ('enter date/s, when finished input done ')
@@ -31,21 +31,35 @@ def read_record():
             dates.append(dat)
             dat =input ('enter date/s, when finished input done ')
 
-        record=CalendarEntry()
+        
         rows = read_record_for_date(dates,)
+        entries=[]
         for row in rows:
-            print(row)
+            entry=CalendarEntry(*row)
+            entries.append(entry)
+        for entry in entries:
+            print (entry)
+            
     elif column == 2:
         tim=input('enter the time of the meeting: ')
         rows = read_record_for_day(tim);
+        entries=[]
         for row in rows:
-            print(row)
+            entry=CalendarEntry(*row)
+            entries.append(entry)
+        for entry in entries:
+            print (entry)
+            
     elif column == 3:
         pers=input('who are you looking for: ')
         rows = read_record_for_person(pers,)
+        entries=[]
         for row in rows:
-            print(row)
-
+            entry=CalendarEntry(*row)
+            entries.append(entry)
+        for entry in entries:
+            print (entry)
+            
 def add_record():
     dat=input('enter the date of the meeting: ')
     tim=input('enter the time of the meeting: ')
@@ -97,11 +111,8 @@ class CalendarEntry:
         self.meeting = meeting
 
     def __str__(self):
-        return f'On {self.date}, you have a meeting at {self.Starttime} with {self.person}'
+        return f'On {self.date}, you have a {self.meeting} meeting at {self.Starttime} with {self.person}, {self.jobrole}. It is {self.duration} minutes long.'
     
-
-
-        
 
 if __name__ == '__main__':
     create_table()
