@@ -22,7 +22,7 @@ class HelloTest2(unittest.TestCase):
 
 class HelloTest3(unittest.TestCase):
     def test_read_record_for_date_wednesday(self):
-        rows=hello.read_record_for_date('09.07.25')
-        self.assertEqual(len(rows),1)
+        rows=hello.read_record_for_date(['09.07.25'])
+        self.assertEqual(len(rows),2)
         self.assertEqual(rows[0][1],'10.00')
         self.assertEqual(rows[0][3], 'Adam Robertson')

@@ -30,13 +30,9 @@ def read_record():
         while dat != 'done':
             dates.append(dat)
             dat =input ('enter date/s, when finished input done ')
-        placeholders=','.join(['?']*len(dates))
-        query = f'''
-        SELECT * FROM day
-        WHERE date IN ({placeholders})
-        '''
+
         record=CalendarEntry()
-        rows = read_record_for_date(query,dates,)
+        rows = read_record_for_date(dates,)
         for row in rows:
             print(row)
     elif column == 2:
@@ -64,7 +60,13 @@ def add_record():
     conn.commit()
     conn.close()
 
-def read_record_for_date(query,dates,):
+def read_record_for_date(dates,):
+    placeholders=','.join(['?']*len(dates))
+    query = f'''
+    SELECT * FROM day
+    WHERE date IN ({placeholders})
+    '''
+
     cursor.execute(query,dates,)
     rows = cursor.fetchall()
     return rows;
@@ -79,6 +81,11 @@ def read_record_for_day(tim):
     rows = cursor.fetchall()
     return rows;
 
+def delete_record():
+    #cursor.execute('DELETE FROM day WHERE person =?',(person,))
+    #conn.commit()
+    pass
+    
 
 class CalendarEntry:
     def __init__(self, date, Starttime, duration, person, jobrole, meeting):
