@@ -1,7 +1,15 @@
 import sqlite3
+from datetime import datetime
 conn = sqlite3.connect('calendar.db')
 cursor =conn.cursor()
+def date_verification(date_str,fmt='%d.%m.%y'):
+    try:
+        datetime.strptime(date_str,fmt)
+        return True
+    except ValueError:
+        return False
 
+    
 def create_table():
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS day (
@@ -25,13 +33,12 @@ def read_record():
     column = int(input ('select which column you are searching in:\n1. date\n2.time\n3.person '))
     if column == 1:
         dates=[]
-        dat =input ('enter date/s, when finished input done ')
+        dat =input ('enter date/s (dd.mm.yy), when finished input done ')
         
         while dat != 'done':
             dates.append(dat)
             dat =input ('enter date/s, when finished input done ')
-
-        
+            
         rows = read_record_for_date(dates,)
         entries=[]
         for row in rows:
@@ -61,7 +68,13 @@ def read_record():
             print (entry)
             
 def add_record():
-    dat=input('enter the date of the meeting: ')
+    while True:
+        dat=input('enter the date of the meeting: ')
+        if date_verification(dat):
+            break
+        else:
+            print('invalid date. try again.')
+    
     tim=input('enter the time of the meeting: ')
     length=input('enter the duration of the meeting: ')
     pers=input('enter the person holding the meeting: ')
@@ -98,7 +111,15 @@ def delete_record():
     #cursor.execute('DELETE FROM day WHERE person =?',(person,))
     #conn.commit()
     pass
-    
+
+def string():
+    entries=[]
+    cursor.execute('SELECT * FROM day')
+    rows = cursor.fetchall()
+    for row in rows:
+        entry=CalendarEntry(*row)
+        entries.append(str(entry))
+    return '\n'.join(entries)
 
 class CalendarEntry:
     def __init__(self, date, Starttime, duration, person, jobrole, meeting):
@@ -111,6 +132,8 @@ class CalendarEntry:
 
     def __str__(self):
         return f'On {self.date}, there is a {self.meeting} meeting at {self.Starttime} with {self.person}, {self.jobrole}. It is {self.duration} minutes long.'
+    
+    
 
 if __name__ == '__main__':
     create_table()
@@ -131,6 +154,7 @@ if __name__ == '__main__':
         elif choice =='4' or 'exit':
             print('goodbye!')
             break
+
         else:
             print('invalid input.')
             choice=input('select one of the 4 start options ')
