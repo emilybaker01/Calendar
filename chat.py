@@ -28,7 +28,13 @@ while True:
     response = client.chat.completions.create(
         model=AZURE_OPENAI_MODEL_NAME,
         messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "system", "content": 'You are a helpful assistant. On 08.07.25, there is a intro to marketing meeting at 10.00 with Mel Davis, Marketing Manager. It is 30 minutes long.'
+            'On 08.07.25, there is a intro to training meeting at 10.30 with Di Austin, Training Manager. It is 30 minutes long.'
+            'On 08.07.25, there is a intro to testing meeting at 11.00 with George Smyth, CTO. It is 30 minutes long.'
+            'On 08.07.25, there is a intro to tech docs meeting at 11.30 with Chris Callaghan, Technical Writer. It is 30 minutes long.'
+            'On 09.07.25, there is a Campaigning Team Workshop meeting at 10.00 with Adam Robertson, Campaigning Tech Lead. It is 30 minutes long.'
+            'On 09.07.25, there is a Intro to Tech Services meeting at 11.00 with Craig Walker, Tech Services Manager. It is 30 minutes long.'
+            'On 10.07.25, there is a Intro to Development meeting at 15.30 with Stuart Williams, Software Producer. It is 30 minutes long.'},
             {"role": "user", "content": user_input}
         ],
         max_tokens=200

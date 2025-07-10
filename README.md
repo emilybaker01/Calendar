@@ -11,3 +11,7 @@ At the moment it has 4 main commands:
 
 _the table should not be created if already exists._
 _new records cannot be created if they have the same date and time._
+
+_09.07.25_ this program now includes openai!
+here is a link you need to be able to run the code now!
+https://apteco.slack.com/archives/D0958QSB4TA/p1752069062968999

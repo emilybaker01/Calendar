@@ -80,7 +80,6 @@ def read_record_for_date(dates,):
     SELECT * FROM day
     WHERE date IN ({placeholders})
     '''
-
     cursor.execute(query,dates,)
     rows = cursor.fetchall()
     return rows;
@@ -111,8 +110,7 @@ class CalendarEntry:
         self.meeting = meeting
 
     def __str__(self):
-        return f'On {self.date}, you have a {self.meeting} meeting at {self.Starttime} with {self.person}, {self.jobrole}. It is {self.duration} minutes long.'
-    
+        return f'On {self.date}, there is a {self.meeting} meeting at {self.Starttime} with {self.person}, {self.jobrole}. It is {self.duration} minutes long.'
 
 if __name__ == '__main__':
     create_table()
@@ -130,7 +128,7 @@ if __name__ == '__main__':
         elif choice == '3':
             add_record()
             choice=input('select one of the 4 start options ')
-        elif choice =='4':
+        elif choice =='4' or 'exit':
             print('goodbye!')
             break
         else:
