@@ -45,7 +45,7 @@ def read_record():
             entry=CalendarEntry(*row)
             entries.append(entry)
         for entry in entries:
-            print (entry)
+            print(entry)
             
     elif column == 2:
         tim=input('enter the time of the meeting: ')
@@ -123,17 +123,24 @@ def string():
 
 class CalendarEntry:
     def __init__(self, date, Starttime, duration, person, jobrole, meeting):
-        self.date = date 
+        self.date = datetime.strptime(date, '%d.%m.%y')
         self.Starttime = Starttime
         self.duration = duration
         self.person = person
         self.jobrole = jobrole
         self.meeting = meeting
-
+    def day_suffix(self,day):
+        if 4<=day <=20 or 24 <= day <=30:
+            return 'th'
+        else:
+            return ['st','nd','rd'][day % 10-1]
     def __str__(self):
-        return f'On {self.date}, there is a {self.meeting} meeting at {self.Starttime} with {self.person}, {self.jobrole}. It is {self.duration} minutes long.'
+        day = self.date.day
+        suffix=self.day_suffix(day)
+        formatted_date=self.date.strftime(f'%A{day}{suffix}%Y')
+        return f'On {formatted_date}, there is a {self.meeting} meeting at {self.Starttime} with {self.person}, {self.jobrole}. It is {self.duration} minutes long.'
     
-    
+
 
 if __name__ == '__main__':
     create_table()
