@@ -8,7 +8,6 @@ class HelloTest(unittest.TestCase):
         self.assertEqual(rows[0][0], '08.07.25')
         self.assertEqual(rows[0][1], '10.00')
 
-
 if __name__ == '__main__':
     unittest.main()
 
@@ -18,7 +17,6 @@ class HelloTest2(unittest.TestCase):
         self.assertEqual(len(rows),1)
         self.assertEqual(rows[0][0],'08.07.25')
         self.assertEqual(rows[0][1], '10.00')
-
 
 class HelloTest3(unittest.TestCase):
     def test_read_record_for_date_wednesday(self):

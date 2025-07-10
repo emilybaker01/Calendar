@@ -2,13 +2,14 @@ import sqlite3
 from datetime import datetime
 conn = sqlite3.connect('calendar.db')
 cursor =conn.cursor()
+
+
 def date_verification(date_str,fmt='%d.%m.%y'):
     try:
         datetime.strptime(date_str,fmt)
         return True
     except ValueError:
         return False
-
     
 def create_table():
     cursor.execute('''
@@ -108,9 +109,10 @@ def read_record_for_day(tim):
     return rows;
 
 def delete_record():
-    #cursor.execute('DELETE FROM day WHERE person =?',(person,))
-    #conn.commit()
-    pass
+    person='Martin Green'
+    cursor.execute('DELETE FROM day WHERE person =?',(person,))
+    conn.commit()
+    
 
 def string():
     entries=[]
@@ -140,8 +142,6 @@ class CalendarEntry:
         formatted_date=self.date.strftime(f'%A{day}{suffix}%Y')
         return f'On {formatted_date}, there is a {self.meeting} meeting at {self.Starttime} with {self.person}, {self.jobrole}. It is {self.duration} minutes long.'
     
-
-
 if __name__ == '__main__':
     create_table()
     print('*****WELCOME TO YOUR MEETING CALENDAR*****')
@@ -158,10 +158,11 @@ if __name__ == '__main__':
         elif choice == '3':
             add_record()
             choice=input('select one of the 4 start options ')
-        elif choice =='4' or 'exit':
+        elif choice =='4':
             print('goodbye!')
             break
-
+        elif choice == '5':
+            delete_record()
         else:
             print('invalid input.')
             choice=input('select one of the 4 start options ')
