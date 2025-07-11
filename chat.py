@@ -1,4 +1,5 @@
 import json
+from datetime import datetime, timedelta, date
 import sqlite3
 from hello import string
 from openai import AzureOpenAI
@@ -30,8 +31,12 @@ def insert_meeting(date, start_time, duration, person, job_role, meeting):
     conn.commit()
     conn.close()
 
+def Todays_date():
+    today= date.today()
+    return str(today)
 
 records_text=string()
+today_str= Todays_date()
 
 print("Chatbot: Hello! How can I assist you today? Type 'exit' to end the conversation.")
 
@@ -45,8 +50,9 @@ while True:
         response = client.chat.completions.create(
             model=AZURE_OPENAI_MODEL_NAME,
             messages=[
-                {"role": "system", "content": 'You are a helpful assistant.'},
+                {"role": "system", "content": 'You are a helpful assistant. dates are formatted dd.mm.yy'},
                 {"role": "system", "content": f'here are the calendar records:\n{records_text}'},
+                {"role": "system", "content": f'here is todays date:\n{today_str}'},
                 {"role": "system", "content": "if the user wants to add a meeting, return the details as JSON like this\n"+
                                                 '{"date": "08.07.25","start_time":"10.00","duration":"30","person":"Mel Davis","job_role":"Marketing Manager","meeting":"intro to marketing"}'},
                 {"role": "user", "content": user_input}
@@ -73,7 +79,7 @@ while True:
         print('inserting: ',data)
     
     except json.JSONDecodeError as e:
-        print('no structured data found, just showing text response. ')
+        print(' ')
     except Exception as e:
         print(f'unexpected error: {e}')
     except KeyError as e:

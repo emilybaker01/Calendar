@@ -1,8 +1,11 @@
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timedelta, date
 conn = sqlite3.connect('calendar.db')
 cursor =conn.cursor()
 
+def Todays_date():
+    today= date.today()
+    print ('***********',today,'***********')
 
 def date_verification(date_str,fmt='%d.%m.%y'):
     try:
@@ -145,6 +148,7 @@ class CalendarEntry:
 if __name__ == '__main__':
     create_table()
     print('*****WELCOME TO YOUR MEETING CALENDAR*****')
+    Todays_date()
     print('PLEASE SELECT ONE OF THE FOLLOWING START OPTIONS')
     print('1.view whole table\n2.view specific records\n3.add new record\n4.exit')
     choice=input()
@@ -161,8 +165,9 @@ if __name__ == '__main__':
         elif choice =='4':
             print('goodbye!')
             break
-        elif choice == '5':
+        elif choice =='5':
             delete_record()
+            choice=input('select one of the 4 start options ')
         else:
             print('invalid input.')
             choice=input('select one of the 4 start options ')
