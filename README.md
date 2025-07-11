@@ -32,8 +32,13 @@ inserting:  {'date': '11.10.25', 'start_time': '12.00', 'duration': '60', 'perso
 
 as you can see the date automatically saved to the month of october, i will try and fix that using datetime and calendar
 
-you may need to add the following code in the .env file:
+
+11/07/25 -- chatbot is now able to understand the date
 
 
-AZURE_OPENAI_EMBEDDING_MODEL_NAME = os.getenv("AZURE_OPENAI_EMBEDDING_MODEL_NAME")
-AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME = os.getenv("AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME")
+## features i would like to add to the calendar in the future
+* reoccurring meetings
+* reminders before meetings, day before, hours before?
+* ai being able to delete records?
+* reschedualling meetings, repeating them.
+* look at the RAG stuff _https://en.wikipedia.org/wiki/Retrieval-augmented_generation_

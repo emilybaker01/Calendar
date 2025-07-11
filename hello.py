@@ -146,6 +146,7 @@ class CalendarEntry:
         return f'On {formatted_date}, there is a {self.meeting} meeting at {self.Starttime} with {self.person}, {self.jobrole}. It is {self.duration} minutes long.'
     
 if __name__ == '__main__':
+
     create_table()
     print('*****WELCOME TO YOUR MEETING CALENDAR*****')
     Todays_date()
@@ -171,3 +172,5 @@ if __name__ == '__main__':
         else:
             print('invalid input.')
             choice=input('select one of the 4 start options ')
+
+        
