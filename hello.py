@@ -1,5 +1,5 @@
 import sqlite3
-from datetime import datetime, timedelta, date
+from datetime import datetime, date
 conn = sqlite3.connect('calendar.db')
 cursor =conn.cursor()
 
