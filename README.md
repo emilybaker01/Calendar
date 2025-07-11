@@ -31,3 +31,9 @@ meeting added to database.
 inserting:  {'date': '11.10.25', 'start_time': '12.00', 'duration': '60', 'person': 'Simon Holderness', 'job_role': 'Development Director', 'meeting': 'discussion on cricket'}
 
 as you can see the date automatically saved to the month of october, i will try and fix that using datetime and calendar
+
+you may need to add the following code in the .env file:
+
+
+AZURE_OPENAI_EMBEDDING_MODEL_NAME = os.getenv("AZURE_OPENAI_EMBEDDING_MODEL_NAME")
+AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME = os.getenv("AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME")
